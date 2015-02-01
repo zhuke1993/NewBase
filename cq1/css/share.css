@@ -1,0 +1,36 @@
+*
+{
+	margin:0px;
+	padding: 0px;
+	outline: none;
+}
+.left
+{
+	float: left;
+}
+.right
+{
+	float: right;
+}
+img
+{
+	border:none;
+}
+li
+{
+	list-style: none;
+}
+a
+{
+	text-decoration: none;
+}
+a:hover
+{
+	text-decoration: underline;
+}
+.clear
+{
+	clear: both;
+	overflow: hidden;
+	height: 0px;
+}

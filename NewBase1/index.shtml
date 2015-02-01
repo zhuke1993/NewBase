@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="system/easyui/jquery.min.js"></script>
+    <title>学生工作信息管理系统</title>
+</head>
+<style>
+    html{
+        height: 100%;
+    }
+    body{
+        line-height:1.6;
+        color:#333;
+        font-family: "Microsoft Yahei";
+        font-size: 12px;
+        height: 100%;
+        background: -webkit-gradient(linear, 0 0, 0 bottombottom, from(#f3f3f3), to(#0079da));
+        background: -webkit-linear-gradient(#f3f3f3, #0079da);
+        background: -moz-linear-gradient(#f3f3f3, #0079da);
+        background: -ms-linear-gradient(#f3f3f3, #0079da);
+        background: -o-linear-gradient(#f3f3f3, #0079da);
+        background: linear-gradient(#f3f3f3, #0079da);
+        filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#f3f3f3,endcolorstr=#0079da,gradientType=1);
+        overflow: hidden;
+    }
+    input,textarea,select{
+        font-size:100%;
+        font-family:inherit;
+    }
+    body,h1,h2,h3,h4,h5,h6,p,ul,ol,form{
+        margin:0;
+    }
+    img{
+        border:0;
+    }
+    #top{
+        height: 45%;
+    }
+    #header{
+        width: 1000px;
+        margin: 0 auto;
+    }
+    #header p{
+        font-size: 14px;
+        color: #fff;
+        margin-left: 400px;
+    }
+    #header img.first{
+        width: 228px;
+        display: block;
+    }
+    #wrapper{
+        width: 100%;
+        margin-top: -278px;
+    }
+    #main{
+        width: 100%;
+        min-height: 420px;
+        background: url("students/login/login_main_bg.png");
+        margin-top: 20px;
+        padding: 1px 0;
+        margin-bottom: 20px;
+    }
+    #login{
+        width: 227px;
+        height: 232px;
+        padding: 27px 26px 22px 26px;
+        background: url("students/login/login_box.png");
+        border: 1px solid #b0d4f0;
+        box-shadow: 0px 3px 5px 1px #658ba7;
+        border-radius: 10px;
+        position: absolute;
+        top: -120px;
+        right: 0;
+    }
+    #login img{
+        width: 74px;
+        margin: 0 auto;
+        display: block;
+    }
+    #content{
+        width: 1000px;
+        margin: 0 auto;
+        position: relative;
+    }
+    form{
+        width: 100%;
+        margin-top: 14px;
+        overflow: hidden;
+    }
+    #login form img{
+        width: 150px;
+    }
+    table{
+        width: 100%;
+        font-size: 14px;
+        color: #fff;
+        margin-top: 10px;
+    }
+    .left{
+        width:60px;
+        text-align: center;
+    }
+    .info{
+        width: 90%;
+        font-size: 14px;
+        padding: 6px 8px;
+        border: 1px solid #b5d5ee;
+        box-shadow: inset 0px 0px 1px 2px #8cb6d6;
+        background: inherit;
+        border-radius: 4px;
+    }
+    .submit{
+        font-size: 18px;
+        color: #fff;
+        width: 95%;
+        background: #0898c7;
+        float: right;
+        border: 1px solid #7ec0f5;
+        padding: 8px 0;
+        border-radius: 6px;
+        margin-top: 10px;
+    }
+    #news{
+        width: 500px;
+        margin-top: 46px;
+        overflow: hidden;
+
+    }
+    #news h1{
+        font-size: 18px;
+        font-weight: normal;
+        margin-bottom: 1em;
+    }
+    #news p{
+    	display: block;
+    	overflow:hidden;
+        font-size: 14px;
+        text-indent: 2em;
+        background: url("students/login/news.png") no-repeat;
+        position: relative;
+    }
+    #news p span{
+    	position: absolute;
+    	right: 0;
+    }
+    #news a{
+        font-size: 14px;
+        text-indent: 2em;
+        color: #000;
+        margin-left: 6px;
+    }
+    #news a.more{
+    	float: right;
+    }
+    #news a:hover{
+        color: #7ec0f5;
+    }
+</style>
+<script language="JavaScript">
+function doAjax() {
+	if (myform.UserID.value == "") {
+		window.alert("您必须完成帐号的输入!");
+		document.myform.elements(0).focus();
+		return false;
+	}
+	if (myform.Password.value == "") {
+		window.alert("您必须完成密码的输入!");
+		document.myform.elements(1).focus();
+		return false;
+	}
+    $.ajax( {
+        url : "LoginServlet.do?Type=Login",
+        dataType : "text", //传参的数据类型
+        type : "post", //传参方式，get 或post
+        data : {
+        	UserID :myform.UserID.value, //"这是变量值" //传过去的参数，格式为 变量名：变量值
+        	Password:myform.Password.value
+        },
+        error : function(msg) { //若Ajax处理失败后返回的信息
+            alert("登陆错误，请稍后重试！");
+        },
+        success : function(text) { //若Ajax处理成功后返回的信息
+        	if(text==1){
+        		window.location.href="main.jsp";	
+        	}else if(text==-1){
+        		alert("用户名或密码错误，请检查用户名或密码后再试！");
+        	}else if(text==-2){
+        		alert("本账户没有启动，请联系管理员启用本账户后再登陆！");
+        	}else if(text==-3){
+        		alert("本账户限定了登陆IP，本IP不能登陆！");
+        	}
+            
+        }
+    });
+}
+</script>
+<body>
+    <div id="top"></div>
+    <div id="wrapper">
+        <div id="header">
+            <img src="students/login/logo.png" alt="" class="first"/>
+            <img src="students/login/logo2.png" alt=""/>
+            <p>版本：1.0</p>
+            <p>技术支持：数字媒体技术研究所</p>
+        </div>
+        <div id="main">
+            <div id="content">
+                <div id="login">
+                    <img src="students/login/box_1.png" alt=""/>
+                    <form action="LoginServlet.do?Type=Login" METHOD="POST" name="myform" >
+                        <img src="students/login/login_user.png" alt="user"/>
+                        <table>
+                            <tr>
+                                <td class="left">用户名：</td>
+                                <td><input type="text" class="info" name="UserID"/></td>
+                            </tr>
+                            <tr>
+                                <td class="left">密&nbsp;&nbsp;码：</td>
+                                <td><input type="password" class="info" name="Password"/></td>
+                            </tr>
+                        </table>
+                        <input type="button" class="submit" value="登录" onclick="doAjax()"/>
+                    </form>
+                </div>
+                <div id="news">
+                <h1>最新通知：</h1>
+                <!--#include virtual="/IndexServlet.do?model=news"-->
+                 <a class="more" target='blank' href="students/xw/page.jsp?ID=news">更多&gt;&gt;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

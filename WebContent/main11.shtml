@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+    <title></title>
+    <link href="system/easyui/themes/default/easyui.css" rel="stylesheet"/>
+    <link href="system/easyui/themes/icon.css" rel="stylesheet"/>
+    <script src="system/easyui/jquery.min.js"></script>
+    <script src="system/easyui/jquery.easyui.min.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="system/js/DivClass.js"></script>
+    <meta charset="utf-8">
+    <script src="system/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <style>
+    /* .panel-body{overflow: hidden;} */
+        a{text-decoration: none}
+        a:hover{text-decoration: underline;}
+        #tabs iframe{width: 100%;height: 100%;border: 0}
+        .north-header{width: 100%;height: 63px;background: url(system/img/cx_top.png) no-repeat;border-bottom: 2px solid #417eb7;overflow: hidden;}
+        .north-header .top_nav{width:230px;float:left;height:100%;background: url(system/img/cx_top_left.png) no-repeat;}
+        /*=bar
+        ---------------------------*/
+
+        .north-header .header-nav-bar{position: absolute;bottom: 30px;left: 240px;height:27px;width:auto;}
+        .north-header .header-nav-bar a{background: url(./img/bar/header_normal.png) repeat-x;display:block;float:left;color:#5f5f5f;line-height: 27px;padding-left: 25px;padding-right: 25px;}
+        .north-header .header-nav-bar a.active{color: #fff;background: url(./img/bar/header_active.png) repeat-x}
+        .north-header .header-nav-bar a.first-bar{width:10px;height:100%;background: url(./img/bar/header_left.png) no-repeat;padding: 0}
+        .north-header .header-nav-bar a.last-bar{width:10px;height:100%;background: url(./img/bar/header_right.png) no-repeat;padding: 0}
+        /*=bar-end*/
+        
+
+        .top_message{background: url(system/img/top_message.png) no-repeat;float: right;width: 163px;height: 24px;margin-right: 20px}
+    
+
+        .top_message div{float:left;}
+        .top_message div a{line-height: 20px;color: #676767;}
+        .icon{width: 20px;height: 20px}
+        .top_message .icon{margin-left: 13px;margin-right: 4px}
+
+        .icon-arr{background: url(system/img/arr.png) no-repeat;}
+        .search-message{width:100%;height:20px;margin-bottom:5px;border-bottom:1px solid #ddd}
+        .search-message span{vertical-align: -3px}
+    </style>
+</head>
+<body class="easyui-layout">
+    <div id="win-popwin">
+        <iframe id='pop' frameborder="no" border="0" srcoll="auto" width="100%" height="100%"></iframe>
+    </div>
+    <div id="win-about">
+        <p>本程序****</p>
+    </div>
+    <div data-options="region:'north'" style="height:66px;overflow: hidden;background:url(system/img/new01_zz04.jpg) repeat-x;">
+        <div class="north-header">
+            <div class="top_message">
+                <div class="icon icon-help"></div><div><a href="#" id="exit">退出系统</a></div>
+                <div class="icon icon-tip"></div><div><a href="#" id="about">关于</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- menu[west]-->
+    <div title="导航" data-options="region:'west',split:true" style="width:220px;padding-top:5px" id="menu">
+        <div class="easyui-tree" id="tree-items">
+            
+        </div>
+    </div>   
+    <div data-options="region:'center'" style="padding:0px;background:#eee;">
+        <div id="tabs" class="easyui-tabs" fit="true" border="false" style="overflow: hidden;background: #FFFFFF">
+            
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript">
+    ///////////////////////////////// 弹出窗口 /////////////////////////////
+    var field1,field2;
+ 	function setValues(value1,value2) {
+ 	   	if(field1 != null) {
+ 	   		/* if(field1.hasClass("easyui-textbox")) field1.textbox('setValue',value1);
+ 	   		else field1.val(value1); */
+ 	   		field1.value=value1;
+ 	   	}
+ 	   	if(field2 != null) {
+ 	   		/* if(field2.hasClass("easyui-textbox")) field2.textbox('setValue',value2);
+ 	   		else field2.val(value2); */
+ 	   		field2.value=value2;
+ 	   	}
+ 	}
+	
+	function SelectOK(typeID){
+        var node = $("#select-tree").tree('getSelected');
+        top.setValues(node.id,node.text);
+        top.CloseWindow(typeID);
+    }
+
+    function SelectCancel(typeID){
+        top.CloseWindow(typeID);
+    }
+ 	
+ 	function SelectWindow(mode,typeID,winTitle,f1,f2,winWidth,winHeight){
+		CreateDiv(typeID);
+		field1=f1;
+		field2=f2;
+		$.parser.parse($("#"+typeID).html("<div style='border:1px solid #bbb;padding:5px;background:#F4F4F4;'><a class='easyui-linkbutton' href='#' id='btn-add' iconCls='icon-ok' onclick='top.SelectOK(\""+typeID+"\");'>确定</a>&nbsp;<a class='easyui-linkbutton' href='#' id='btn-cancel' iconCls='icon-cancel' onclick='top.SelectCancel(\""+typeID+"\");'>取消</a></div><div class='easyui-tree' id='select-tree'></div>"));
+		$("#"+typeID).window({id:typeID,width:winWidth,height:winHeight,title:winTitle,modal:true});
+		$('#select-tree').tree({'url':'/TreeServlet.do?model='+mode,'method':'get'});
+		$("#"+typeID).window("open");
+ 	}
+  
+	function OpenWindow(url,typeID,winTitle,winWidth,winHeight){
+		CreateDiv(typeID);
+		$("#"+typeID).css("overflow","hidden");
+		$("#"+typeID).html("<iframe id='Iframe"+typeID+"' src='"+url+"' scrolling='yes' frameborder='no' width='99%' height='99%'></iframe>");
+		$("#"+typeID).window({id:typeID,width:winWidth,height:winHeight,title:winTitle,modal:true});
+		$("#"+typeID).window("open");
+	}
+	
+	function CreateDiv(typeID){
+		var div = "<div id='"+typeID+"' class='easyui-window' title='Modal Window' data-options='closed:true,collapsible:false,minimizable:false,maximizable:false,resizable:false' style='padding:0px;'></div>"; 
+		$(document.body).append(div);
+	}
+	
+	function CloseWindow(typeID){
+		$("#"+typeID).window("close");
+	}
+    
+    //////////////////////////// 弹出PopWin /////////////////////////
+    
+    
+	function Add(src,allowScroll,winObj,popObjID,title,w,h,read,f1,f2){
+	    var frm=CreateFrame(popObjID,src,allowScroll,winObj);
+	    PopWin(popObjID,title,frm,w,h,read);
+	    field1=f1;
+	    field2=f2;
+	    frm=null;
+	}
+	/* function popwin(title,src,width,height){
+    	$('#pop').attr("src",src);
+    	$('#win-popwin').window({
+            width:width,
+            height:height,
+            modal:true,
+            title:title,
+            minimizable:false,
+            maximizable:false,
+            collapsible:false
+        }).window('open');
+    } */
+	
+	////////////////////////////////////////////////////////////////////
+    $(function(){
+        //初始化
+        $('#tree-items').tree({
+            'url' : '/UserMenu.do',
+            'method':'get',
+            'onClick' : function(node){
+                if(node.attributes && node.attributes["data-href"]){
+                    if(!$('#tabs').tabs('exists',node['text'])){
+                        var href = node.attributes["data-href"]
+                        $('#tabs').tabs('add',{    
+                            title:node['text'],    
+                            content:'<iframe id="ContentFrame" frameborder="no" border="0" srcoll="no" src="'+href+'"></iframe>',
+                            closable:true 
+                        });
+                        $('#ContentFrame').parent().css('overflow','hidden');
+                    }else{
+                        $('#tabs').tabs('select',node.text);
+                    }
+                    $.parser.parse($('#ContentFrame').parent().css('overflow','hidden'));
+                }
+                
+            }
+        });
+
+        //事件绑定
+        $('#about').click(function(){
+            $('#win-about').window({
+                width:'600px',
+                height:'200px',
+                modal:true,
+                title:'关于',
+                minimizable:false,
+                maximizable:false
+            }).window('open');
+        })
+
+        $('#exit').click(function(){
+        	$.ajax( {
+                url : "LoginServlet.do?Type=Logout",
+                type : "get",
+                error : function(msg) {
+                    alert("退出错误，请稍后重试！");
+                },
+                success : function(text) {
+                	window.location.href="/";
+                }
+            });
+        });
+        
+        $('#tree-items').delegate('.item','click',function(){
+ 
+        });
+    })  
+</script>
+</html>

@@ -1,0 +1,142 @@
+body {
+    background: #FFF
+}
+a {
+    color: black
+}
+.tr {
+    text-align: right
+}
+.fl {
+    float: left
+}
+.wrapper {
+    width: 960px;
+    margin: 0 auto
+}
+.banner {
+	width: 960px;
+    height: 225px;
+    margin: 0 auto
+}
+.banner img{
+	width: 960px;
+}
+.banner {
+    position: relative;
+    overflow: auto;
+}
+.banner li {
+    list-style: none;
+}
+.banner ul li {
+    float: left;
+}
+.news {
+    height: 276px;
+    width: 100%;
+}
+.media ul {
+    list-style: none
+}
+.media ul li {
+    padding-left: 15px;
+    margin-top: 8px;
+    background: url(../img/public/point.png) center left no-repeat;
+}
+.media {
+    height: 160px;
+    width: 100%;
+}
+.media a {
+    font-size: 13px
+}
+.media h2 {
+    letter-spacing: 4px;
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+.me-cqupt, .me-contents, .me-links{
+	height: 108px;
+    float: left;
+    border-top: 4px solid #9ed8d9;
+}
+
+.me-cqupt {
+    width: 356px;
+}
+.me-contents {
+    width: 312px;
+    margin-left: 5px;
+}
+.me-contents .title{
+	letter-spacing: 4px;
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: 10px;
+    display:block;
+	width: 102px;
+	float: left;
+}
+.pg-content{
+	position: relative;
+	top: -40px;
+}
+.me-links {
+    width: 282px;
+    margin-left: 5px;
+}
+.me-links a{
+	font-size: 12px
+}
+.me-links li {
+    background: none !important
+}
+.me-links-footer{
+	padding-left: 15px;
+	padding-top: 15px
+}
+
+.me-links-footer a {
+    display: block;
+    float: left;
+    width: 81px
+}
+.me-links-footer a:first-child{
+	width: 81px
+}
+.me-links-footer a img{
+	padding-top: 10px;
+	display: inline-block
+}
+.check{
+	position: absolute;
+	bottom: 20px;
+	right: 157px;
+}
+.check a{
+	display: block;
+	float: left;
+	width: 10px;
+	height: 10px;
+	margin-left: 12px;
+	background: url(../img/check.png) no-repeat;
+}
+
+.check a.active{
+	background: url(../img/checked.png) no-repeat;
+}
+.nav--box{
+	margin-bottom: 0 !important;
+	position: relative;
+	z-index: 1
+}
+
+.me-contents-tabs{
+	display: none
+}
+.me-contents .active{
+	display: block;
+}

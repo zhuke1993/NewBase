@@ -1,0 +1,108 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <link href="system/easyui/themes/default/easyui.css" rel="stylesheet"/>
+    <link href="system/easyui/themes/icon.css" rel="stylesheet"/>
+    <script src="system/easyui/jquery.min.js"></script>
+    <script src="system/easyui/jquery.easyui.min.js"></script>
+	<script src="system/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" href="system/css/main.css" />
+    <meta charset="utf-8">
+</head>
+
+<body class="easyui-layout">
+    <div data-options="region:'north'" style="height:111px;">
+        <div class="pg-header">
+            <div class="banner">
+                <div class="hd-left">
+                    <img src="system/img/logo.png" alt="logo" />
+                </div>
+                <div class="hd-right">
+                    <div class="hd-tips">
+                        <a href="#" class="help">帮助</a>
+                        <a href="#" class="about">关于系统</a>
+                    </div>
+                </div>
+                <div class="hd-mask"></div>
+            </div>
+
+            <div class="hd-welbar">
+                <p class="fl ml10">欢迎登陆,Admin</p>
+                <p class="fr mr10">当前日期：2014/11/13 <a href="#" class="exit">退出登陆</a>
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div title="导航" data-options="region:'west',split:true" style="width:220px;padding-top:10px;padding-left:5px" id="menu">
+        <div class="easyui-tree" id="tree-items">
+
+        </div>
+    </div>
+    <div data-options="region:'center'" style="padding:5px;background:#eee;">
+        <div id="tabs" class="easyui-tabs" fit="true" border="false">
+
+        </div>
+    </div>
+
+    <!-- menu[west]-->
+
+</body>
+<script type="text/javascript">
+$(function() {
+    window.showEdit = function(){
+        $("#dlg").dialog('open');
+    }
+    showEdit();
+    //初始化
+    $('#tree-items').tree({
+        'url': '/UserMenu.do',
+        'method':'get',
+        'onClick': function(node) {
+            if (node.attributes && node.attributes["data-href"]) {
+                if (!$('#tabs').tabs('exists', node['text'])) {
+                    var href = node.attributes["data-href"]
+                    $('#tabs').tabs('add', {
+                        title: node['text'],
+                        content: '<iframe frameborder="no" border="0" srcoll="yes" src="' + href + '" style="html,body{height: 100%;}body {margin: 2px;overflow: hidden;}"></iframe>',
+                        closable: true
+                    });
+                } else {
+                    $('#tabs').tabs('select', node.text);
+                }
+            }
+
+        }
+    });
+
+    //事件绑定
+    $('#about').click(function() {
+        $('#win-about').window({
+            width: '600px',
+            height: '200px',
+            modal: true,
+            title: '关于',
+            minimizable: false,
+            maximizable: false
+        }).window('open');
+    })
+
+    $('#help').click(function() {
+        $('#win-help').window({
+            width: '600px',
+            height: '200px',
+            modal: true,
+            title: '关于',
+            minimizable: false,
+            maximizable: false
+        }).window('open');
+    });
+
+})
+</script>
+
+</html>

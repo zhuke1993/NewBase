@@ -1,0 +1,30 @@
+body {
+	background: url("../images/left1.gif") repeat-x top; margin: 0px; text-align: center;
+}
+form {
+	margin: 0px;
+}
+.table_list{
+	cellspacing:0; 
+	cellpadding:0;
+	margin:1px auto;
+	border-collapse:collapse;
+	border:1px solid #CACACA;
+	width:99%;
+}
+.table_list td{
+	font-size:12px;
+	border-bottom: #CACACA 1px solid;
+	border-left: #CACACA 1px solid;
+	border-right: #CACACA 1px solid;
+	border-top: #CACACA 1px solid;
+	height:25px;
+}
+.cx_Title{
+	background-color: #e3f0fc;
+	height:25px;
+}
+.line{
+	border:1px solid #CACACA;
+	width:99%;
+}

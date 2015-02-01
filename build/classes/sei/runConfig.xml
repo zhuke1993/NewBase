@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="GB2312"?>
+<sys>
+	<logPath_Linux>c:/logs</logPath_Linux> <!-- 日志文件存放路径 -->
+	<logPath_Windows>/usr/app/logs</logPath_Windows> <!-- 日志文件存放路径 -->
+	<AttFileSaveToDB>0</AttFileSaveToDB> <!-- 0:村委文件,文件存放目录由AttFileSavePath指定,1:存到数据库中 -->
+	<AttFileSavePath_Linux>/usr/app/attfile</AttFileSavePath_Linux> <!-- 当AttFileSaveToDB为0时,文件存放在服务器的目录 -->
+	<AttFileSavePath_Windows>c:/attfile</AttFileSavePath_Windows> <!-- 当AttFileSaveToDB为0时,文件存放在服务器的目录 -->
+    
+	<Log>1</Log> <!-- 0:不启用日志记录,1:启用日志记录 -->
+
+    <DatabaseDriver>com.mysql.jdbc.Driver</DatabaseDriver>
+    <CnnStr>jdbc:mysql://127.0.0.1:3306/students?useUnicode=true&amp;characterEncoding=UTF-8</CnnStr>
+    <username>root</username>
+    <password>123456</password>
+    <ConnectPool>java:comp/env/jdbc/students</ConnectPool>
+    <pageSize>30</pageSize>
+
+    <model id="user" table="t_sys_user" PrimaryKey="user_id" select="select user_id,user_name from t_sys_user" loaddata="select sys_id,(select base_name from t_sys_base where base_type='system' and t_sys_base.base_id=t_sys_user.sys_id) as sys_id_$,user_id,user_name,dept_id,dept_name as dept_id_$,role_id,role_name as role_id_$,USER_MOB_PHONE,USER_ADDR,USER_JOB,USER_IP,USER_EMAIL,USER_DUTY,USER_LEAD,USER_STATUS,USER_POST_CODE,USER_ORDER,USER_HOME_PHONE,USER_PSWD_DAYS,USER_MEMO from t_sys_user where user_id=?" total="select count(1) from t_sys_user" PageRows="select user_id as id,user_name,user_type,dept_name,role_name,USER_JOB,USER_LEAD,USER_MOB_PHONE from t_sys_user" DeptPv="DEPT_ID" UserPv="PUSER_ID"/>
+    <model id="dept,role,system" table="t_sys_base" PrimaryKey="base_id" select="select base_id,base_name from t_sys_base" loaddata="select sys_id,(select base_name from t_sys_base t where base_type='system' and t.base_id=t_sys_base.base_id) as sys_id_$,base_id,base_name,parent_id,(select base_name from t_sys_base t where t.base_id=t_sys_base.parent_id) as parent_id_$,base_type1,base_order,base_status,base_ext1,base_ext2,base_ext3,base_ext4,base_ext5,base_ext6,base_ext7,base_ext8,base_ext9,base_ext10,base_ext11,base_ext12,base_ext13,base_ext14,base_ext15,base_ext16,base_ext17,base_ext18,base_ext19,base_ext20,base_memo from t_sys_base where base_id=?" total="select count(1) from t_sys_base" PageRows="select base_id as id,base_name,parent_id as _parentId,base_type1,base_order,base_status,base_ext1,base_ext2,base_ext3,base_ext4,base_ext5,base_ext6,base_ext7,base_ext8,base_ext9,base_ext10,base_ext11,base_ext12,base_ext13,base_ext14,base_ext15,base_ext16,base_ext17,base_ext18,base_ext19,base_ext20,base_memo from t_sys_base" DeptPv="BASE_ID" UserPv="PUSER_ID"/>
+    <model id="privilege" table="t_sys_privilege" PrimaryKey="pr_id" select="" loaddata="select sys_id,(select base_name from t_sys_base where base_type='system' and t_sys_base.base_id=v_sys_privilege.sys_id) as sys_name,obj_id,obj_name,pr_browse,pr_browse_scope,pr_add,pr_edit,pr_edit_scope,pr_del,pr_del_scope,pr_audit,pr_audit_scope,pr_memo from v_sys_privilege where pr_id=?" total="select count(1) from v_sys_privilege" PageRows="select pr_id as id,obj_id,obj_name,pr_browse,pr_add,pr_edit,pr_del,pr_audit,pr_memo from v_sys_privilege where role_id='system' union select pr_id as id,obj_id,obj_name,pr_browse,pr_add,pr_edit,pr_del,pr_audit,pr_memo from v_sys_privilege" DeptPv="DEPT_ID" UserPv="PUSER_ID"/>
+    
+    <tohtml id="swtz,gsgg,ssyw,jczs,zbfc,xzryj,wszx,czzjbgt" type="net" FromUrl="http://127.0.0.1/default.jsp" ToHtml="/default.shtml" Class="dangjian.tohtml.ToHtml" Method="Index"/>
+    <tohtml id="mmd"><tohtml type="net" FromUrl="http://127.0.0.1/default.jsp" ToHtml="/default.shtml" Class="dangjian.tohtml.ToHtml" Method="Index"/></tohtml>
+
+</sys>

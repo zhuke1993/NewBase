@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link href="themes/default/easyui.css" rel="stylesheet"/>
+    <link href="themes/icon.css" rel="stylesheet"/>
+    <script src="jquery.min.js"></script>
+    <script src="jquery.easyui.min.js"></script>
+    <meta charset="utf-8">
+    <script src="locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div id="win">
+	<table>
+		<tr>
+			<td>
+				<select class="you-chose"></select>
+			</td>
+			<td>
+				<select class="you-oper">
+					<option value="等于">等于</option>
+					<option value="大于">大于</option>
+					<option value="小于">小于</option>
+				</select>
+			</td>
+			<td>
+				<input type="text" class="" name="chal" />
+			</td>
+			
+		</tr>
+		<tr>
+			<td>
+				<select class="you-chose"></select>
+			</td>
+			<td>
+				<select class="you-oper">
+					<option value="等于">等于</option>
+					<option value="大于">大于</option>
+					<option value="小于">小于</option>
+				</select>
+			</td>
+			<td>
+				<input type="text" class="" name="chal" />
+			</td>
+			
+		</tr>
+		<tr>
+			<td>
+				<select class="you-chose"></select>
+			</td>
+			<td>
+				<select class="you-oper">
+					<option value="等于">等于</option>
+					<option value="大于">大于</option>
+					<option value="小于">小于</option>
+				</select>
+			</td>
+			<td>
+				<input type="text" class="" name="chal" />
+			</td>
+			
+		</tr>
+		<tr>
+			<td>
+				<select class="you-chose"></select>
+			</td>
+			<td>
+				<select class="you-oper">
+					<option value="等于">等于</option>
+					<option value="大于">大于</option>
+					<option value="小于">小于</option>
+				</select>
+			</td>
+			<td>
+				<input type="text" class="" name="chal" />
+			</td>
+			
+		</tr>
+		<tr>
+			<td></td><td></td>
+			<td>
+				<a href="#" class="easyui-linkbutton" id="search" iconCls="icon-search">查询</a>
+			</td>
+		</tr>
+	</table>
+</div>
+</body>
+<script>
+	$('#win').window({
+		height : '170px',
+		width : '280px',
+		title : '加载'
+	});
+	var ss = {"table" : "name",chose : [{"label" : 'lll',value : 'vvvv'},{"label" : 'lll',value : 'vvvv'},{"label" : 'lll',value : 'vvvv'}]};
+
+	$.each( ss["chose"], function(k, v){
+		$('.you-chose').append("<option data-field='"+v["value"]+"'>" + v['label'] + "</option>");
+	});
+
+	$('#search').click(function(){
+		var params = "";
+		$('[name="chal"]').each(function(){
+			if($(this).val() != "" ){
+				var tr = $(this).parents("tr"),
+				field = tr.find(".you-chose").val(),
+				oper = tr.find(".you-oper").val(),
+				value = tr.find("[name='chal']").val();
+
+				var index = $(tr.find(".you-chose")[0].options[tr.find(".you-chose")[0].selectedIndex]).attr("data-field");
+				params += "fieldName" + "=" + index + "&oper=" + oper + "&value=" +value; 
+			}
+		});
+		
+	});
+	
+</script>
+</html>

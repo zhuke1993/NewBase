@@ -1,0 +1,315 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+<title></title>
+<link href="../easyui/themes/default/easyui.css" rel="stylesheet" />
+<link href="../easyui/themes/icon.css" rel="stylesheet" />
+<script src="../easyui/jquery.min.js"></script>
+<meta charset="utf-8">
+<style type="text/css">
+	html,body{width:100%;height:100%;margin:0}
+	#add-win{width:340px;height:130px}
+	#add-win label{display:inline-block;width:100px;margin-left:20px;}
+	#add-win label{margin-top:5px}
+	#add-win input{width:150px}
+	#add-win button{margin-left:20px}
+	iframe{border: 0}
+    #win-search{width: 410px;height: 200px}
+    #menu{padding:0;}
+    
+    hr{border: 1px solid #ddd}
+    #for-search{float: right;margin-right: 17px}
+    .chose-win{width: 170px;height: 70px}
+
+    #chose-sel{margin-top: 20px;margin-left: 20px}
+</style>
+</head>
+<body>
+	<div id="tb" style="">
+			<div>
+				<a id="tb-add" href="#" class="easyui-linkbutton" iconCls="icon-add">新增信息</a>
+                <a id="tb-edit" href="#" class="easyui-linkbutton" iconCls="icon-edit">编辑信息</a> 
+                <a id="tb-del" href="#" class="easyui-linkbutton" iconCls="icon-remove">删除选中</a>
+                <a id="tb-search" href="#" class="easyui-linkbutton" iconCls="icon-search">新增查询</a>
+			</div>
+		</div>
+		<table class="easyui-datagrid">
+		<!-- <div class="easyui-pagination" id="my-pagination" style="border:1px solid #ccc;">  
+			<select>
+				<option></option>
+			</select>
+		</div> --> 
+		</table>
+	<div id="add-win" class="easyui-window" closed="true">
+		<form method="post">
+			<input type="hidden" id="form_hide" name="user_id" />
+			<div>
+				<label for="activity_title">用户名</label>
+				<input class="" type="text" name="user_name"/>
+			</div>
+			<div>
+				<label for="activity_title">密码</label>
+				<input class="" type="text" name="password"/>
+			</div>
+			
+			<div>
+				<button type="submit">提交</button>
+			</div>
+		</form>
+	</div>
+    <div id="win-search" class="easyui-window" closed="true">  
+        <table id="condition-table">
+            <tr>
+                <td>
+                    <select name="cond-name" class="cond-name easyui-combobox"></select>
+                </td>
+                <td>
+                    <select name="cond-oper" class="cond-oper easyui-combobox">
+                        <option>等于</option>
+                        <option>大于</option>
+                        <option>小于</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="cond-value " name="cond-value" />
+                    <a href="#" class="cond-chose easyui-linkbutton">选择</a>
+                </td>
+                <td>
+                    <select name="cond-bool" class="cond-bool easyui-combobox">
+                        <option>并且</option>
+                        <option>或者</option>
+                    </select>
+                </td>
+                
+            </tr>
+            <tr>
+                <td>
+                    <select name="cond-name" class="cond-name easyui-combobox"></select>
+                </td>
+                <td>
+                    <select name="cond-oper" class="cond-oper easyui-combobox">
+                        <option>等于</option>
+                        <option>大于</option>
+                        <option>小于</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="cond-value " name="cond-value" />
+                    <a href="#" class="cond-chose easyui-linkbutton">选择</a>
+                </td>
+                <td>
+                    <select name="cond-bool" class="cond-bool easyui-combobox">
+                        <option>并且</option>
+                        <option>或者</option>
+                    </select>
+                </td>
+                
+            </tr>
+            <tr>
+                <td>
+                    <select name="cond-name" class="cond-name easyui-combobox"></select>
+                </td>
+                <td>
+                    <select name="cond-oper" class="cond-oper easyui-combobox">
+                        <option>等于</option>
+                        <option>大于</option>
+                        <option>小于</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="cond-value " name="cond-value" />
+                    <a href="#" class="cond-chose easyui-linkbutton">选择</a>
+                </td>
+                <td>
+                    <select name="cond-bool" class="cond-bool easyui-combobox">
+                        <option>并且</option>
+                        <option>或者</option>
+                    </select>
+                </td>
+                
+            </tr>
+            <tr>
+                <td>
+                    <select name="cond-name" class="cond-name easyui-combobox"></select>
+                </td>
+                <td>
+                    <select name="cond-oper" class="cond-oper easyui-combobox">
+                        <option>等于</option>
+                        <option>大于</option>
+                        <option>小于</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="cond-value " name="cond-value" />
+                    <a href="#" class="cond-chose easyui-linkbutton">选择</a>
+                </td>
+                <td>
+                    <select name="cond-bool" class="cond-bool easyui-combobox">
+                        <option>并且</option>
+                        <option>或者</option>
+                    </select>
+                </td>
+                
+            </tr>
+            
+            
+        </table>
+        <hr/>
+        <a href="#" class="easyui-linkbutton" id="for-search" iconCls="icon-search">查询</a>
+    </div>
+    <div class="chose-win easyui-window" closed="true">
+        <select id="chose-sel">
+            <option>正在载入...</option>
+        </select>
+        <button>确定</button>
+    </div>
+</body>
+<script type="text/javascript">
+	$(function(){        
+		//{"rows":[{"user_id":4,"user_name":"dd","password":"password"},{"user_id":5,"user_name":"dd","password":"password"}],"total":"2"}
+        var conditions = [{"n":"姓名","t":"text"},{"n":"编号","t":"number"}];//用于查询
+		$('.easyui-datagrid').datagrid({
+            title:"用户管理",
+            columns:[[
+                { field:'ck',checkbox:true },
+                {field:'user_id',title:'编号',width:'20%'},
+                {field:'password',title:'密码',width:'20%'},
+                {field:'user_name',title:'姓名',width:'20%'}
+            ]],
+            striped:true,
+            width:'100%',
+            height:'100%',
+            toolbar:$('#tb'),
+            method:'get',
+            pagination:true,
+            singleSelect:false,
+            url:'../user_.php',
+            selectOnCheck: true,
+            checkOnSelect: true,
+            rownumbers: true,
+            loadMsg:'正弦载入...',
+        });
+		
+        $('#tb-add').click(function(){
+            $('#add-win form').attr('action','');
+            $('#add-win').css('display','block');
+            $('#add-win').window({
+                modal:true,
+                title:'新增',
+                minimizable:false,
+                maximizable:false
+            }).window('open');
+            $('#add-win input').val("");
+        });
+        
+        $('.cond-chose').click(function(){
+            var tr = $(this).parents("tr"),
+                cond_name = tr.find("[name='cond-name']"),
+                cond_value = tr.find("[name='cond-value']");
+            
+            //清空options
+            $('#chose-sel').html("<option>正在载入</option>");
+            $('.chose-win').window({
+                title : '选择',
+                minimizable:false,
+                maximizable:false
+            }).window('open');
+            
+            $.post("../load.php","name="+cond_name.val(),function(e){
+                if(e && e.length){
+                    $('#chose-sel').html("");
+                    for(var i = 0; i < e.length;i++){
+                        $('#chose-sel').append("<option>"+e[i]+"</option>");
+                    }
+                }
+            });
+
+            $('#chose-sel ~ button').click(function(){
+                cond_value.val($('#chose-sel').val());
+                $('.chose-win').window("close");
+            });
+        });
+        
+        $('#tb-edit').click(function(){
+            
+        	var checkedItems = $('.easyui-datagrid').datagrid("getChecked");
+            
+            if(checkedItems && checkedItems.length == 1){
+                $('#add-win form').attr('action','');
+                $('#add-win').window({
+                    modal:true,
+                    title:'修改',
+                    minimizable:false,
+                    maximizable:false
+                }).window('open');
+                
+                $.each(checkedItems[0], function(k, v){
+                    $("input[name='" + k + "']").val(v);
+                });
+            } else {
+                $.messager.alert("提示","请选择一个选项进行编辑");
+            }
+            
+        })
+        
+        $('#tb-del').click(function(){
+        	var checkedItems = $('.easyui-datagrid').datagrid("getChecked");
+            if( checkedItems && checkedItems.length > 0){
+                var names = [];
+                $.each(checkedItems, function(index, item){
+                    names.push(item['user_id']);
+                });               
+                console.log(names.join(","));
+            } else {
+                $.messager.alert("提示","请至少选择一个选项进行删除");
+            }
+        	
+        });
+        
+        $('#tb-search').click(function(){
+            $('#win-search').window({
+                modal:true,
+                title:'修改',
+                minimizable:false,
+                maximizable:false
+            }).window('open');
+
+        });
+
+        
+        $('.cond-name').each(function(){
+            var _this = $(this);
+            $.each(conditions, function(k,v){
+                _this.append("<option data-type='" + v["t"] + "'>" + v["n"] + "</option>");
+            })
+        }).change(function(){
+            $('#cond1-val').addClass("easyui-datebox");
+        });
+
+        $('#for-search').click(function(){
+            $('input[name="cond-value"]').each(function(k, v){
+                if($(this).val() != ""){
+                    
+                    var tr = $(this).parents("tr"),
+                        cName = tr.find('[name="cond-name"]').val(),
+                        cOper = tr.find('[name="cond-oper"]').val(),
+                        cValue = $(this).val(),
+                        cBool = tr.find('[name="cond-bool"]').val();
+
+                    console.log(cName + " : " + cOper + " : " + cValue + " : " + cBool);
+                }
+            });
+        });
+
+        function jsontoURL (obj){
+        	var sum = "?";
+        	for(var i in obj){
+        		sum += i +"="+obj[i]+"&";
+        	}
+        	return sum.substring(0,sum.length-1);
+        }
+	})
+</script>
+<script src="../jquery.easyui.min.js"></script>
+<script src="../locale/easyui-lang-zh_CN.js"></script>
+</html>

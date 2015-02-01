@@ -1,0 +1,82 @@
+/** watch out! this is a common file for list page,not a basic css file **/
+html,body.manager{height: 100%}
+body {margin: 0;overflow:hidden}
+h1,h2,h3,h4,h5,h6,img,p,iframe{
+	margin:0;
+	padding:0;
+	border:0
+}
+
+
+#ff {
+	margin: 0;
+	padding: 10px 30px;
+}
+
+.hide .textbox {
+	display: none !important;
+}
+
+#dlg tr {
+	height: 24px
+}
+
+.btnBox .sep {
+	display: inline-block;
+	width:1px;
+	height:22px;
+	background:#ddd;
+	vertical-align:middle
+}
+
+.searchBox {
+	margin: 5px
+}
+.btnBox .easyui-linkbutton{
+	position:relative;
+}
+#win-search{width: 420px;height: 200px}
+#for-search{float: right;margin-right: 17px}
+
+#for-search, #for-cancel{
+	float:right
+}
+#search__form tr{
+	height:35px
+}
+#for-cancel{
+	margin-right:5px
+}
+#win-search hr{
+	border:1px solid #ddd
+}
+.searchPopBox{
+	width: 156px;
+	position: absolute;
+	left: 0;
+	top: 24px;
+	z-index: 100;
+	background: white;
+}
+
+.searchPopBox__content{
+	width: 100%;
+	height: 100%;
+}
+
+.searchPopBox__content a{
+  display: block;
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
+  text-indent: 5px
+}
+
+.searchPopBox__content a.active{
+	background: #f2f2ea;
+    color: #d04734;
+}
+.search-form__btn{
+	float:right;
+	margin-right:13px
+}
